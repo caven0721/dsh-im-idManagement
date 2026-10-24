@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IM 身份管理</title>
+  <link rel="stylesheet" href="/api/dsh-im-idmanagement/static/style.css">
+</head>
+<body>
+  <main>
+    <header>
+      <h1>IM 身份管理</h1>
+      <p class="lead">给每个 IM 账号准备一份人设。生成之后，去 <strong>设置 → IM 助理</strong>把那个账号的工作目录填成这里的路径。</p>
+    </header>
+
+    <section class="panel">
+      <h2>第一步 · 选根目录</h2>
+      <p class="muted">人设和记忆都建在这个工作区下面。换一个根目录，下面的列表就换成那边的。</p>
+      <div class="row">
+        <select id="workspace-select"></select>
+        <button id="use-workspace" type="button">用这个</button>
+      </div>
+      <div class="or"><span>OR</span></div>
+      <div class="row">
+        <input id="base-input" placeholder="或者直接填一个绝对路径，例如 D:\我的工作区">
+        <button id="use-path" type="button">用这个路径</button>
+      </div>
+
+      <p class="muted" style="margin-top:14px">记忆放在哪儿？默认是根目录下的「记忆」。你自己的记忆文件夹要是叫别的名字，填在这儿——存在就直接用，不存在会给你建一个。</p>
+      <div class="row">
+        <input id="memory-input" placeholder="记忆目录，例如 D:\我的资料\备忘">
+        <button id="use-memory" type="button">用这个目录</button>
+      </div>
+      <div class="row">
+        <button id="reset-memory" type="button">恢复默认</button>
+      </div>
+
+      <p id="base-message" class="message"></p>
+      <p class="muted">当前根目录：<span id="current-base" class="path">（还没选）</span></p>
+      <p class="muted">当前记忆目录：<span id="current-memory" class="path">（还没定）</span> <span id="memory-badge" class="badge">默认</span></p>
+    </section>
+
+    <section class="panel" id="create-panel">
+      <h2>第二步 · 新建人设</h2>
+      <form id="create-form">
+        <label>名字（也是文件夹名）<input name="name" placeholder="例如：妈妈" required></label>
+        <label>bot 对他的称呼<input name="address" placeholder="例如：妈咪" required></label>
+        <label>人设规则<textarea name="notes" rows="5" placeholder="这个框里的分寸、禁忌、能聊什么，都可以写在这儿。可以不填，之后直接改 AGENTS.md 也行。"></textarea></label>
+        <label class="check"><input type="checkbox" name="overwrite"> 覆盖已有的 AGENTS.md</label>
+        <button type="submit">生成</button>
+      </form>
+      <p id="message" class="message"></p>
+    </section>
+
+    <section class="panel">
+      <h2>已有的人设</h2>
+      <table>
+        <thead><tr><th>名字</th><th>状态</th><th>工作目录</th><th></th></tr></thead>
+        <tbody id="rows"><tr><td colspan="4" class="muted">读取中…</td></tr></tbody>
+      </table>
+    </section>
+
+    <section class="panel" id="editor-panel" hidden>
+      <h2>编辑 · <span id="editor-name"></span></h2>
+      <p class="muted path" id="editor-path"></p>
+      <textarea id="editor-text" rows="20" spellcheck="false"></textarea>
+      <div class="row" style="margin-top:10px">
+        <button id="editor-save" type="button">保存</button>
+        <button id="editor-close" type="button">关闭</button>
+      </div>
+      <p id="editor-message" class="message"></p>
+    </section>
+
+    <section class="panel">
+      <h2>回收站</h2>
+      <p class="muted">删掉的人设会挪到这儿，不会立刻消失。按「保留 7 天、最多 20 份」自动清理旧的那些。</p>
+      <p class="muted">占用：<strong id="trash-size">—</strong></p>
+      <div id="trash-list" class="trash-list"></div>
+      <button id="empty-trash" type="button" class="danger">清空回收站</button>
+      <p id="trash-message" class="message"></p>
+    </section>
+
+    <section class="panel">
+      <h2>路径</h2>
+      <dl id="paths" class="paths"></dl>
+    </section>
+  </main>
+  <script src="/api/dsh-im-idmanagement/static/app.js"></script>
+</body>
+</html>

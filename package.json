@@ -1,0 +1,58 @@
+{
+  "name": "dsh-im-idmanagement",
+  "version": "0.1.0",
+  "description": "Per-account identity and memory for DSH IM channels: one persona file per IM account, one shared memory, plus a small page to manage them. 为 DSH 的多个 IM 账号分别配置人设与记忆的插件。",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "web",
+    "docs",
+    "cordis.patch.yml",
+    "README.md",
+    "DESIGN.md",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "test": "node --test test/scaffold.test.mjs",
+    "check": "node --check lib/index.js"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-runtime",
+        "@deepseek-ai/dsh-client-ui-settings"
+      ],
+      "platform": "web"
+    }
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "im",
+    "persona",
+    "memory",
+    "wechat",
+    "微信",
+    "身份",
+    "人设",
+    "记忆"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.5"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.4"
+  }
+}
